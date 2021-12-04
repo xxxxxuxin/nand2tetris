@@ -17,4 +17,25 @@ CHIP PC {
 
     PARTS:
     // Put your code here:
+
+    Not(in=reset, out=nreset);
+    Not(in=load, out=nload);
+    Not(in=inc, out=ninc);
+
+    Or(a=reset, b=load, out=zx);
+
+    Or(a=load, b=inc, out=nxtmp);
+    And(a=nreset, b=nxtmp, out=nx);
+
+    Or(a=reset, b=nload, out=zy);
+
+    And(a=nreset, b=nload, out=ny);
+
+    And(a=nload, b=inc, out=tmp);
+    Or(a=reset, b=tmp, out=f);
+    And(a=nreset, b=tmp, out=no);
+
+    Register(in=outnow, load=true, out=out, out=outloop);
+
+    ALU(x=outloop, y=in, zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,out=outnow, zr=zr,ng=ng);
 }
