@@ -1,4 +1,4 @@
-# nand2tetris
+# Build a Modern Computer from First Principles
 
 This repository holds projects form the [nand2tetris](https://www.coursera.org/learn/build-a-computer) course on coursera.
 
