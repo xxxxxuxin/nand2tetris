@@ -12,3 +12,64 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+
+
+    @KBD
+    D=A 
+    @lastaddr
+    M=D
+
+
+(LISTEN)
+    @SCREEN 
+    D=A 
+    @addr
+    M=D
+
+    @KBD 
+    D=M
+    @BLACKLOOP
+    D; JNE
+    @INITIALIZE
+    D; JEQ
+
+(BLACKLOOP)
+    @addr
+    D=M 
+    @lastaddr
+    D=D-M 
+    @LISTEN
+    D;JEQ
+
+    @addr
+    A=M 
+    M=-1
+
+    @addr
+    M=M+1
+    
+    @BLACKLOOP
+    0;JMP 
+
+
+(INITIALIZE)
+    @addr
+    D=M
+    @lastaddr
+    D=D-M
+    @LISTEN
+    D;JEQ
+
+    @addr
+    A=M
+    M=0 
+
+    @addr 
+    M=M+1
+    @INITIALIZE
+    0;JMP 
+
+
+(END)
+    @END
+    0;JMP
