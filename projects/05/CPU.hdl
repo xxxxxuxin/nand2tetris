@@ -40,4 +40,42 @@ CHIP CPU {
 
     PARTS:
     // Put your code here:
+    Mux16(a=instruction , b=ALUout, sel=instruction[15], out=addr);
+
+    //A Register
+    Not(in=instruction[15], out=aInst);
+    Or(a=aInst, b=instruction[5], out=aControl); //using dest
+    ARegister(in=addr ,load=aControl ,out[0..14]=addressM,out=addrM );
+
+    //Mux M & A Register
+    And(a=instruction[12], b=instruction[15], out=compControl); //using 'a' bit
+    Mux16(a=addrM, b=inM, sel=compControl, out=ALUy);
+
+    //D Register
+    And(a=instruction[15], b=instruction[4], out=dControl);
+    DRegister(in=ALUout ,load=dControl ,out=ALUx );
+
+    //ALU
+    ALU(x=ALUx ,y=ALUy ,zx=instruction[11] ,nx=instruction[10] ,
+                        zy=instruction[9] ,ny=instruction[8] ,
+                        f=instruction[7] ,no=instruction[6] ,
+                        out=outM, out=ALUout ,zr=zr ,ng=ng );
+
+    //PC
+    //if A-instruction ,inc
+    //if C-instruction ,jumpControl=f(j1,j2,j3,zr,ng,instruction[15])
+    And(a=zr, b=instruction[1], out=zeroJump);
+    And(a=ng, b=instruction[2], out=negJump);
+    Or(a=zr, b=ng, out=nz);
+    Not(in=nz, out=pos);
+    And(a=pos, b=instruction[0], out=posJump);
+    Or(a=zeroJump, b=negJump, out=nzJump);
+    Or(a=nzJump, b=posJump, out=jumpControl);
+    And(a=jumpControl, b=instruction[15], out=jump);
+    PC(in=addrM ,load=jump ,inc=true ,reset=reset ,out[0..14]=pc );
+
+    //writeM
+    //dest has M && not A instruction
+    And(a=instruction[3], b=instruction[15], out=writeM);
+
 }
