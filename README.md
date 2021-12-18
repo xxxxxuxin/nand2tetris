@@ -1,9 +1,16 @@
 # Build a Modern Computer from First Principles
 
-This repository holds projects form the wonderful course [nand2tetris](https://www.coursera.org/learn/build-a-computer) on coursera, orgnized precisely as the provided software suite.
+This repository holds projects form wonderful courses by **Noam Nisan** and **Shimon Schocken** on coursera
+(
+[Part I](https://www.coursera.org/learn/build-a-computer),
+[Part II](https://www.coursera.org/learn/nand2tetris2)
+), 
+orgnized precisely as provided software suite. 
 
-This course also features an [official website](http://www.nand2tetris.org/) which provides all the resource needed, including the corresponding book by the course instructors:
+The two courses are accompanied by their well written textbook :
+> ***Elements of Computing Systems***(Nisan and Schocken, MIT Press)
 
-> ***Elements of Computing Systems*** 
->>  **Noam Nisan** and **Shimon Schocken**
+There is an [official website](http://www.nand2tetris.org/) which provides all the resource needed.
+
+
 
